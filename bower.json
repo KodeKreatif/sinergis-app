@@ -1,0 +1,12 @@
+{
+  "name": "kriting-app",
+  "version": "0.0.1",
+  "devDependencies": {
+    "angular": "latest",
+    "bootstrap": "latest",
+    "angular-ui-utils": "latest",
+    "angular-ui-router": "latest",
+    "angular-bootstrap": "latest"
+  },
+  "dependencies": {}
+}

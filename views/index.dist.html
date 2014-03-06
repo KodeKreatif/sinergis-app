@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en" ng-app="kritingApp"><head><title>Kriting App</title>
+  <!-- inject:css -->
+  <!-- endinject -->
+</head>
+<body>
+  <div id="wrapper">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#">Kriting</a>
+        </li>
+        {% for state in states %}
+        <!-- todo : handle sub states -->
+        <li><a ui-sref="{{ state.name }}">{{ state.name | capitalize }}</a>
+        </li>
+        {% endfor %}
+        <li><a href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+    <div id="page-content-wrapper">
+      <div ui-view class="container-fluid"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var states = {{ states | raw | json_encode }};
+  </script>
+  <!-- inject:js -->
+  <!-- endinject -->
+</body>
+</html>
+
+

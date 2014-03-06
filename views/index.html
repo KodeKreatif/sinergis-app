@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="kritingApp">
+<head>
+  <title>Kriting App</title>
+
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/app.css">
+  
+  <!-- js -->
+  <script src="/angular/angular.js"></script>
+  <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+
+  <script type="text/javascript">
+    // todo generate routes
+    var states = {{ states | raw | json_encode }};
+  </script>
+
+  <script src="app/home/home.js"></script>
+  <script src="app/letters/letters.js"></script>
+  <script src="app.js"></script>
+  <script src="states.js"></script>
+  
+</head>
+<body>
+  <div id="wrapper">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#">Kriting</a>
+        </li>
+        {% for state in states %}
+        <!-- todo : handle sub states -->
+        <li><a ui-sref="{{ state.name }}">{{ state.name | capitalize }}</a>
+        </li>
+        {% endfor %}
+        <li><a href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+    <div id="page-content-wrapper">
+      <div ui-view class="container-fluid"></div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
