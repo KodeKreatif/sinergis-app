@@ -6,17 +6,8 @@ var path = require ("path");
 var koa = require ("koa");
 
 module.exports = function (policy) {
-
+  
   var router = new Router();
-
-  router.get ("/app/login", function * (next) {
-    if (this.session.user) {
-      this.redirect("/");
-    } else {
-      this.body = yield render ("login");
-    }
-  });
-
   router.get("/", function * (next) {
 
     // @todo get user, get roles, get routes and consider policy if needed
@@ -57,30 +48,32 @@ module.exports = function (policy) {
       }
     ];
 
-    // this should be done by querying user's roles and corresponding menus
+    // this should be done by querying user's roles and corresponding menus via api?
     this.session = this.session || {};
     var routes = this.session.user == "test" ? routes1 : routes2;
 
     // angular app rendering
     this.body = yield render ("index", { states : routes });
+
   });
 
   var app = koa();
   var env = process.env.NODE_ENV || "development";
 
   if (env == "test" || env == "production") {
-
     // @todo if no dist, throw error
-
     var dir = path.resolve(__dirname + "/dist/public");
     app.use (serve(dir));
   } else {
-    //var dir = path.resolve(__dirname + "/dist/public");
-    //app.use (serve(dir));
     app.use (serve(path.resolve( __dirname + "/vendor")));
     app.use (serve(path.resolve( __dirname + "/src")));
   }
 
   app.use (router.middleware());
-  return mount (app);
+
+  return {
+    mount : mount (app),
+    path : __dirname,
+    type : "app"
+  }
 }

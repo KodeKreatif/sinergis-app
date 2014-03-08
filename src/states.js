@@ -11,5 +11,4 @@ angular.module("kritingApp")
       var state = states[i];
       $stateProvider.state( state.name, state.options); 
     }
-
 }]);
