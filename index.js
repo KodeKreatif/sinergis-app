@@ -9,6 +9,14 @@ module.exports = function (policy) {
 
   var router = new Router();
 
+  router.get ("/app/login", function * (next) {
+    if (this.session.user) {
+      this.redirect("/");
+    } else {
+      this.body = yield render ("login");
+    }
+  });
+
   router.get("/", function * (next) {
 
     // @todo get user, get roles, get routes and consider policy if needed
